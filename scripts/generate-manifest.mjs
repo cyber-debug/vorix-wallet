@@ -15,7 +15,7 @@ const appUrl = `${parsed.toString().replace(/\/$/, '')}/`;
 const manifest = {
     url: appUrl,
     name: 'VORIX Wallet Beta',
-    iconUrl: new URL('logo.svg', appUrl).toString(),
+    iconUrl: new URL('tonconnect-icon.png', appUrl).toString(),
 };
 const target = fileURLToPath(new URL('../public/tonconnect-manifest.json', import.meta.url));
 

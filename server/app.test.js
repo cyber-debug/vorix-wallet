@@ -119,7 +119,7 @@ describe('VORIX API', () => {
     it('serves a fixed-origin manifest and structured API 404s', async () => {
         const manifest = await request(testApp()).get('/api/tonconnect-manifest').expect(200);
         expect(manifest.body.url).toBe('https://beta.example.com');
-        expect(manifest.body.iconUrl).toBe('https://beta.example.com/logo.svg');
+        expect(manifest.body.iconUrl).toBe('https://beta.example.com/tonconnect-icon.png');
 
         const missing = await request(testApp()).get('/api/nope').expect(404);
         expect(missing.body.code).toBe('NOT_FOUND');

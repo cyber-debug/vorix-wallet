@@ -82,7 +82,7 @@ flowchart LR
 | Component | Responsibility |
 | --- | --- |
 | React application | Wallet connection, balances, market UI, estimates, transfer review, and local activity |
-| API client and hooks | Request timeouts, structured errors, demo fallbacks, and shared dashboard state |
+| API client and hooks | Request timeouts, structured errors, and live market/balance state |
 | Express application | Security headers, CORS, rate limits, request IDs, API routes, and SPA serving |
 | Market service | CoinGecko snapshots/history, validation, fresh cache, and marked stale fallback |
 | Balance service | TON address normalization, TON Center lookup, and network-tagged balance cache |
@@ -97,8 +97,10 @@ flowchart LR
 | Transfer confirmation | “Approved in wallet” only; finality should be checked in a TON explorer |
 | Market estimates | Informational only; no swap execution or price reservation |
 | Activity history | Browser-local convenience history, not an authoritative ledger |
-| Telegram profile | Display-only `initDataUnsafe`; never treated as authenticated identity |
-| Demo mode | Clearly labeled synthetic data with transfers disabled |
+| Telegram bridge | Calls Mini App `ready()` and `expand()` when opened inside Telegram; no Telegram identity is trusted by the API |
+| Demo mode | Transfers disabled; no synthetic holdings are shown |
+| Asset scope | Native TON only; jettons are not read by this beta |
+| Testnet valuation | Testnet TON is shown as TON, without assigning it a USD wallet value |
 
 ## Quick Start
 
@@ -228,14 +230,14 @@ environment files do not belong in source control.
 | Wallet connection and signing | TON Connect UI |
 | Blockchain balances | TON Center API v2 |
 | Market data | CoinGecko API |
-| Telegram session display | Telegram Mini App browser object |
+| Telegram Mini App bridge | Telegram Web App script for `ready()` and `expand()` |
 | Frontend hosting | Express same-origin serving or GitHub Pages |
 | Continuous verification | GitHub Actions and Dependabot |
 
 ## Production Deployment
 
 The recommended runtime serves the built SPA and API from one Node process
-behind an HTTPS reverse proxy:
+behind an HTTPS reverse proxy. TON Connect wallets require a publicly reachable HTTPS manifest and its 180×180 PNG icon:
 
 ```bash
 npm ci

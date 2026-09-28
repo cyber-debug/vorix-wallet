@@ -110,7 +110,7 @@ export function createApp({
             contentSecurityPolicy: {
                 directives: {
                     defaultSrc: ["'self'"],
-                    scriptSrc: ["'self'"],
+                    scriptSrc: ["'self'", 'https://telegram.org'],
                     styleSrc: ["'self'", "'unsafe-inline'"],
                     imgSrc: ["'self'", 'data:', 'https:', 'blob:'],
                     connectSrc: ["'self'", 'https:', 'wss:'],
@@ -177,7 +177,7 @@ export function createApp({
         res.json({
             url: origin,
             name: 'VORIX Wallet Beta',
-            iconUrl: new URL('/logo.svg', `${origin}/`).toString(),
+            iconUrl: new URL('/tonconnect-icon.png', `${origin}/`).toString(),
         });
     });
 
